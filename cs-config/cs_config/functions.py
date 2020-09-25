@@ -8,9 +8,6 @@ from src.prepdata.prepdata import TAXDATA_PARAMS, PrepData
 from collections import OrderedDict
 
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-
 
 def get_version():
     return "0.1.0"
@@ -36,7 +33,7 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
 def run_model(meta_param_dict, adjustment):
     params = TAXDATA_PARAMS()
     adjustment = params.adjust(adjustment["Prepare Solver"])
-    puf_df = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    puf_df = retrieve_puf()
 
     p = PrepData(adjustment=adjustment, reweighted=puf_df)
 
